@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+
+# before run install lyricsgenius library: 
+#
+# pip install lyricsgenius
+#
+# use example:
+# python download_lyric.py 'coldplay' 'green eyes'
+
+import lyricsgenius as genius
+import sys
+
+api = genius.Genius('Dfy18Od9p2F38YATymaE2zXnlN-qp6SLdI7Qf3ROGKd6z4GR56BM4upjwhJrJM4r')
+song = api.search_song(sys.argv[2], sys.argv[1])
+
+if song:
+    filename = song.artist + ' - ' + song.title + ' - ' + song.album + ' - ' + song.year[:4]
+    print(filename)
+    song.save_lyrics(filename)

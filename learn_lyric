@@ -1,0 +1,115 @@
+#!/usr/bin/env python3
+
+import sys
+import os
+
+def main():
+    song = sys.argv[1].split(' - ')
+
+    song_artist = song[0]
+    song_title = song[1]
+    song_album = song[2]
+    song_year = song[3][:-4]
+
+    file = open(sys.argv[1], 'r') 
+    lyric = file.readlines()
+    file.close()
+
+    """
+    default_lives = 3
+
+    os.system('clear')
+    in_lives = input(
+        'Set number of lives, press Enter to skip (default: ' + 
+        str(default_lives) + '): ')
+
+    if in_lives is '':
+        max_num_lives = default_lives
+    else:
+        max_num_lives = int(in_lives)
+    """
+
+    max_num_lives = 3
+
+    while True:
+        os.system('clear')
+
+        print('Song Info\n')
+
+        if input('Artist: ') != song_artist:
+            print('\nWrong artist.\nThe correct artist is:\n')
+            print(song_artist)
+            input('\nPress Enter to start again:')
+            continue
+
+        if input('Title: ') != song_title:
+            print('\nWrong title.\nThe correct title is:\n')
+            print(song_title)
+            input('\nPress Enter to start again: ')
+            continue
+
+        if input('Album: ') != song_album:
+            print('\nWrong album.\nThe correct album is:\n')
+            print(song_album)
+            input('\nPress Enter to start again: ')
+            continue
+
+        if input('Year: ') != song_year:
+            print('\nWrong year.\nThe correct year is\n:')
+            print(song_year)
+            input('\nPress Enter to start again: ')
+            continue
+        else:
+            break
+
+    while True:  
+        correct = True
+        num_lives = max_num_lives
+        os.system('clear')
+
+        print('Start Writing\n')
+
+        for line in lyric:
+            if line is '\n' or line[0] is '[' or correct is False:
+                print(line, end='')
+            else:
+                if input('>>>' + ' ') != line[:-1]:
+                    print('-->', line, end='')
+                    print('\nYou were wrong, ', end='')
+                    num_lives -= 1
+                    if num_lives is 1:
+                        print('you have 1 more live.')
+                    elif num_lives:
+                        print('you have ', num_lives, 'more lives.')
+                    else:
+                        print("you don't have more lives :(.")
+                        correct = False
+
+                    print('\nPractice the correct sentence. Enter to exit.\n')
+                    print('-->', line, end='')
+
+                    while True:
+                        instr = input('>>>' + ' ')
+                        if instr is '':
+                            break
+                        if instr != line[:-1]:
+                            print('You were wrong. Practice more')
+                    
+                    if correct:
+                        print('Next sentence')
+                    else:
+                        print('\n\n                   GAME OVER\n\n')
+                        print('Rest of the lyric:\n\n')
+
+        if correct:
+            print('You wrote the song well :)')
+            break
+        else:
+            input('\n\nPress Enter to start again: ')
+
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        print('\nTraining finished')
+        
